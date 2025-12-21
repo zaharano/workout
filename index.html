@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20-Minute Reset | Level 2</title>
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --text-main: #f0f0f0;
+            --text-muted: #a0a0a0;
+            --accent-work: #2978A0;
+            --accent-rest: #4a4a4a;
+            --accent-warmup: #D08770;
+            --accent-cooldown: #A3BE8C;
+            --surface-color: #2a2a2a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        #app, #history-screen {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: 100%;
+            justify-content: center;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Timer Circle */
+        .timer-container {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            margin: 0 auto;
+            border-radius: 50%;
+            background: conic-gradient(var(--current-color) var(--progress), #333 0deg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 0.1s linear;
+        }
+
+        .timer-inner {
+            width: 230px;
+            height: 230px;
+            background-color: var(--bg-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .time-display {
+            font-size: 5rem;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            line-height: 1;
+        }
+
+        /* Text Content */
+        .step-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        .step-desc {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.4;
+            min-height: 3.5em;
+        }
+
+        /* Controls */
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        button {
+            background-color: transparent;
+            border: 2px solid var(--text-main);
+            color: var(--text-main);
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        button:hover {
+            background-color: var(--text-main);
+            color: var(--bg-color);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        button.secondary {
+            border-color: var(--text-muted);
+            color: var(--text-muted);
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Up Next Indicator */
+        .up-next {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+
+        /* History List */
+        .history-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            overflow-y: auto;
+            max-height: 50vh;
+            text-align: left;
+            border-top: 1px solid #333;
+        }
+
+        .history-item {
+            padding: 15px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .history-date { font-weight: bold; }
+        .history-time { color: var(--text-muted); font-size: 0.9rem; }
+
+        /* Phase Colors */
+        .phase-warmup .timer-container { --current-color: var(--accent-warmup); }
+        .phase-work .timer-container { --current-color: var(--accent-work); }
+        .phase-rest .timer-container { --current-color: var(--accent-rest); }
+        .phase-cooldown .timer-container { --current-color: var(--accent-cooldown); }
+        
+        .hidden { display: none !important; }
+
+    </style>
+</head>
+<body>
+
+    <div id="start-screen">
+        <h1 style="font-size: 3rem; margin-bottom: 10px;">20-Minute Reset</h1>
+        <p style="color: #a0a0a0; font-size: 1.2rem;">Level 2 Hybrid • Mobility & Conditioning</p>
+        <br>
+        <div class="controls" style="flex-direction: column; align-items: center;">
+            <button onclick="startWorkout()">Start Workout</button>
+            <button class="secondary" onclick="showHistory()">View History</button>
+        </div>
+    </div>
+
+    <div id="app" class="hidden">
+        <div class="status-bar">
+            <span id="phase-display">WARM UP</span> • <span id="total-progress">0/20 MIN</span>
+        </div>
+
+        <div class="timer-container" id="timer-ring">
+            <div class="timer-inner">
+                <div class="time-display" id="timer">00</div>
+            </div>
+        </div>
+
+        <div>
+            <h1 class="step-title" id="title">Get Ready</h1>
+            <p class="step-desc" id="description">Prepare for mobility work.</p>
+        </div>
+
+        <div class="controls">
+            <button id="toggle-btn" onclick="togglePause()">Pause</button>
+            <button id="home-btn" class="secondary hidden" onclick="goHome()">Done</button>
+        </div>
+
+        <div class="up-next" id="up-next"></div>
+    </div>
+
+    <div id="history-screen" class="hidden">
+        <h2 class="step-title">Workout Log</h2>
+        <ul id="history-list" class="history-list">
+            </ul>
+        <div class="controls">
+            <button onclick="goHome()">Back</button>
+            <button class="secondary" onclick="clearHistory()">Clear</button>
+        </div>
+    </div>
+
+    <script>
+        // --- DATA ---
+        const routine = [
+            // WARM UP (3 Mins)
+            { type: 'warmup', time: 45, title: "Torso Twists", desc: "Plant feet wide, gentle twist side to side. Let heels lift." },
+            { type: 'warmup', time: 45, title: "Hip Openers", desc: "Lift knee up and rotate out to the side like stepping over a hurdle." },
+            { type: 'warmup', time: 45, title: "Arm Swings", desc: "Cross arms over chest then swing wide open." },
+            { type: 'warmup', time: 45, title: "March in Place", desc: "Get the blood moving. Swing your arms." },
+
+            // ROUND 1
+            { type: 'work', time: 40, title: "Sit-to-Stand Squats", desc: "Lower slowly to a chair tap, then stand. Chest up." },
+            { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Next: Step Jacks." },
+            { type: 'work', time: 40, title: "Step Jacks", desc: "Step one foot out with arm raise. No jumping." },
+            { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Next: Wall/Counter Push-ups." },
+            { type: 'work', time: 40, title: "Wall Push-ups", desc: "Hands on wall or counter. Keep core tight." },
+            { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Next: High March Reach." },
+            { type: 'work', time: 40, title: "High March & Reach", desc: "Opposite knee and arm lift. Reach high." },
+            { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Floor work next: Glute Bridges." },
+            { type: 'work', time: 40, title: "Glute Bridges", desc: "Lie on back. Lift hips, squeeze glutes at top." },
+            { type: 'rest', time: 20, title: "Rest", desc: "Stand up next: Side Crunches." },
+            { type: 'work', time: 40, title: "Standing Side Crunches", desc: "Hands behind head. Knee to elbow on side." },
+            { type: 'rest', time: 20, title: "Rest", desc: "Floor work next: Modified Plank." },
+            { type: 'work', time: 40, title: "Modified Plank", desc: "Forearms and knees. Flat back. Squeeze abs." },
+            { type: 'rest', time: 20, title: "Rest", desc: "Round 1 Complete. Round 2 starting." },
+
+            // ROUND 2
+            { type: 'work', time: 40, title: "Sit-to-Stand Squats", desc: "Round 2. Focus on form." },
+            { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Next: Step Jacks." },
+            { type: 'work', time: 40, title: "Step Jacks", desc: "Keep a steady rhythm." },
+            { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Next: Wall/Counter Push-ups." },
+            { type: 'work', time: 40, title: "Wall Push-ups", desc: "Full range of motion." },
+            { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Next: High March Reach." },
+            { type: 'work', time: 40, title: "High March & Reach", desc: "Extend fully. Lengthen the spine." },
+            { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Floor work next: Glute Bridges." },
+            { type: 'work', time: 40, title: "Glute Bridges", desc: "Drive through your heels." },
+            { type: 'rest', time: 20, title: "Rest", desc: "Stand up next: Side Crunches." },
+            { type: 'work', time: 40, title: "Standing Side Crunches", desc: "Balance and squeeze." },
+            { type: 'rest', time: 20, title: "Rest", desc: "Last hard move next: Modified Plank." },
+            { type: 'work', time: 40, title: "Modified Plank", desc: "Hold steady. Don't let hips sag." },
+            { type: 'rest', time: 20, title: "Rest", desc: "Circuit Complete! Time to cool down." },
+
+            // COOL DOWN (3 Mins)
+            { type: 'cooldown', time: 60, title: "Forward Fold", desc: "Legs straight, hang heavy. Shake neck gently." },
+            { type: 'cooldown', time: 60, title: "Calf Stretch", desc: "Against wall. 30s per leg. Breathe." },
+            { type: 'cooldown', time: 60, title: "Deep Belly Breathing", desc: "Inhale 4s, Exhale 6s. Relax." },
+            { type: 'cooldown', time: 0, title: "Workout Complete", desc: "Great job! Session saved." }
+        ];
+
+        // --- STATE ---
+        let currentIndex = 0;
+        let timeLeft = 0;
+        let isPaused = false;
+        let timerInterval = null;
+
+        // --- ELEMENTS ---
+        const els = {
+            startScreen: document.getElementById('start-screen'),
+            app: document.getElementById('app'),
+            historyScreen: document.getElementById('history-screen'),
+            historyList: document.getElementById('history-list'),
+            timer: document.getElementById('timer'),
+            title: document.getElementById('title'),
+            desc: document.getElementById('description'),
+            btn: document.getElementById('toggle-btn'),
+            homeBtn: document.getElementById('home-btn'),
+            phase: document.getElementById('phase-display'),
+            timerRing: document.getElementById('timer-ring'),
+            upNext: document.getElementById('up-next')
+        };
+
+        // --- NAVIGATION ---
+        function startWorkout() {
+            showScreen('app');
+            els.homeBtn.classList.add('hidden');
+            els.btn.classList.remove('hidden');
+            currentIndex = 0;
+            loadStep(currentIndex);
+            startInterval();
+        }
+
+        function goHome() {
+            stopInterval();
+            showScreen('start-screen');
+        }
+
+        function showHistory() {
+            renderHistory();
+            showScreen('history-screen');
+        }
+
+        function showScreen(id) {
+            ['start-screen', 'app', 'history-screen'].forEach(s => {
+                document.getElementById(s).classList.add('hidden');
+            });
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        // --- WORKOUT LOGIC ---
+        function loadStep(index) {
+            const step = routine[index];
+            timeLeft = step.time;
+            
+            els.title.innerText = step.title;
+            els.desc.innerText = step.desc;
+            els.timer.innerText = timeLeft;
+            els.app.className = `phase-${step.type}`; 
+            els.phase.innerText = step.type.toUpperCase();
+
+            // Up Next Logic
+            if (index + 1 < routine.length && routine[index+1].time > 0) {
+                els.upNext.innerText = `Up Next: ${routine[index + 1].title}`;
+            } else {
+                els.upNext.innerText = "";
+            }
+
+            updateRing(100); 
+
+            // FINISH STATE
+            if (step.time === 0) {
+                stopInterval();
+                saveWorkoutLog(); // <--- AUTO SAVE HERE
+                els.timer.innerText = "✓";
+                els.btn.classList.add('hidden');
+                els.homeBtn.classList.remove('hidden');
+                updateRing(100);
+            }
+        }
+
+        function startInterval() {
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                if (!isPaused) tick();
+            }, 1000);
+        }
+
+        function stopInterval() {
+            if (timerInterval) clearInterval(timerInterval);
+        }
+
+        function tick() {
+            if (timeLeft > 0) {
+                timeLeft--;
+                els.timer.innerText = timeLeft;
+                const totalTime = routine[currentIndex].time;
+                updateRing((timeLeft / totalTime) * 100);
+            } else {
+                currentIndex++;
+                loadStep(currentIndex);
+            }
+        }
+
+        function updateRing(percent) {
+            els.timerRing.style.setProperty('--progress', `${percent}%`);
+        }
+
+        function togglePause() {
+            isPaused = !isPaused;
+            els.btn.innerText = isPaused ? "Resume" : "Pause";
+            els.app.style.opacity = isPaused ? "0.5" : "1";
+        }
+
+        // --- LOCAL STORAGE LOGIC ---
+        function saveWorkoutLog() {
+            const now = new Date();
+            const logEntry = {
+                date: now.toLocaleDateString(),
+                time: now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+                timestamp: now.getTime()
+            };
+
+            let logs = JSON.parse(localStorage.getItem('workoutLogs') || '[]');
+            logs.unshift(logEntry); // Add to top
+            localStorage.setItem('workoutLogs', JSON.stringify(logs));
+        }
+
+        function renderHistory() {
+            const logs = JSON.parse(localStorage.getItem('workoutLogs') || '[]');
+            els.historyList.innerHTML = '';
+
+            if (logs.length === 0) {
+                els.historyList.innerHTML = '<li class="history-item" style="justify-content:center; color:#666;">No workouts yet</li>';
+                return;
+            }
+
+            logs.forEach(log => {
+                const li = document.createElement('li');
+                li.className = 'history-item';
+                li.innerHTML = `
+                    <span class="history-date">${log.date}</span>
+                    <span class="history-time">${log.time}</span>
+                `;
+                els.historyList.appendChild(li);
+            });
+        }
+
+        function clearHistory() {
+            if(confirm("Clear all logs?")) {
+                localStorage.removeItem('workoutLogs');
+                renderHistory();
+            }
+        }
+    </script>
+</body>
+</html>
