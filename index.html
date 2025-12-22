@@ -30,10 +30,10 @@
             text-align: center;
         }
 
-        #app, #history-screen {
+        #app, #history-screen, #start-screen {
             width: 100%;
             max-width: 600px;
-            padding: 20px;
+            padding: 30px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
@@ -179,17 +179,21 @@
 
     <div id="start-screen">
         <h1 style="font-size: 3rem; margin-bottom: 10px;">20-Minute Reset</h1>
-        <p style="color: #a0a0a0; font-size: 1.2rem;">Level 2 Hybrid • Mobility & Conditioning</p>
-        <br>
-        <div class="controls" style="flex-direction: column; align-items: center;">
-            <button onclick="startWorkout()">Start Workout</button>
+        <p style="color: #a0a0a0; font-size: 1.2rem;">Select a Workout</p>
+        <div id="workout-selection" class="controls" style="flex-direction: column; align-items: center; margin-top: 20px;">
+            <!-- Generated dynamically -->
+        </div>
+        <div class="controls">
             <button class="secondary" onclick="showHistory()">View History</button>
         </div>
     </div>
 
     <div id="app" class="hidden">
-        <div class="status-bar">
-            <span id="phase-display">WARM UP</span> • <span id="total-progress">0/20 MIN</span>
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+             <div class="status-bar">
+                <span id="phase-display">WARM UP</span> • <span id="total-progress">Total Progress</span>
+            </div>
+            <button id="end-btn" style="padding: 5px 15px; font-size: 0.8rem; border: 1px solid var(--text-muted); color: var(--text-muted);" onclick="endWorkout()">End</button>
         </div>
 
         <div class="timer-container" id="timer-ring">
@@ -223,57 +227,109 @@
 
     <script>
         // --- DATA ---
-        const routine = [
-            // WARM UP (3 Mins)
-            { type: 'warmup', time: 45, title: "Torso Twists", desc: "Plant feet wide, gentle twist side to side. Let heels lift." },
-            { type: 'warmup', time: 45, title: "Hip Openers", desc: "Lift knee up and rotate out to the side like stepping over a hurdle." },
-            { type: 'warmup', time: 45, title: "Arm Swings", desc: "Cross arms over chest then swing wide open." },
-            { type: 'warmup', time: 45, title: "March in Place", desc: "Get the blood moving. Swing your arms." },
+        const workouts = {
+            mobility: [
+                // WARM UP (3 Mins)
+                { type: 'warmup', time: 45, title: "Torso Twists", desc: "Plant feet wide, gentle twist side to side. Let heels lift." },
+                { type: 'warmup', time: 45, title: "Hip Openers", desc: "Lift knee up and rotate out to the side like stepping over a hurdle." },
+                { type: 'warmup', time: 45, title: "Arm Swings", desc: "Cross arms over chest then swing wide open." },
+                { type: 'warmup', time: 45, title: "March in Place", desc: "Get the blood moving. Swing your arms." },
 
-            // ROUND 1
-            { type: 'work', time: 40, title: "Sit-to-Stand Squats", desc: "Lower slowly to a chair tap, then stand. Chest up." },
-            { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Next: Step Jacks." },
-            { type: 'work', time: 40, title: "Step Jacks", desc: "Step one foot out with arm raise. No jumping." },
-            { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Next: Wall/Counter Push-ups." },
-            { type: 'work', time: 40, title: "Wall Push-ups", desc: "Hands on wall or counter. Keep core tight." },
-            { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Next: High March Reach." },
-            { type: 'work', time: 40, title: "High March & Reach", desc: "Opposite knee and arm lift. Reach high." },
-            { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Floor work next: Glute Bridges." },
-            { type: 'work', time: 40, title: "Glute Bridges", desc: "Lie on back. Lift hips, squeeze glutes at top." },
-            { type: 'rest', time: 20, title: "Rest", desc: "Stand up next: Side Crunches." },
-            { type: 'work', time: 40, title: "Standing Side Crunches", desc: "Hands behind head. Knee to elbow on side." },
-            { type: 'rest', time: 20, title: "Rest", desc: "Floor work next: Modified Plank." },
-            { type: 'work', time: 40, title: "Modified Plank", desc: "Forearms and knees. Flat back. Squeeze abs." },
-            { type: 'rest', time: 20, title: "Rest", desc: "Round 1 Complete. Round 2 starting." },
+                // ROUND 1
+                { type: 'work', time: 40, title: "Sit-to-Stand Squats", desc: "Lower slowly to a chair tap, then stand. Chest up." },
+                { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Next: Step Jacks." },
+                { type: 'work', time: 40, title: "Step Jacks", desc: "Step one foot out with arm raise. No jumping." },
+                { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Next: Wall/Counter Push-ups." },
+                { type: 'work', time: 40, title: "Wall Push-ups", desc: "Hands on wall or counter. Keep core tight." },
+                { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Next: High March Reach." },
+                { type: 'work', time: 40, title: "High March & Reach", desc: "Opposite knee and arm lift. Reach high." },
+                { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Floor work next: Glute Bridges." },
+                { type: 'work', time: 40, title: "Glute Bridges", desc: "Lie on back. Lift hips, squeeze glutes at top." },
+                { type: 'rest', time: 20, title: "Rest", desc: "Stand up next: Side Crunches." },
+                { type: 'work', time: 40, title: "Standing Side Crunches", desc: "Hands behind head. Knee to elbow on side." },
+                { type: 'rest', time: 20, title: "Rest", desc: "Floor work next: Modified Plank." },
+                { type: 'work', time: 40, title: "Modified Plank", desc: "Forearms and knees. Flat back. Squeeze abs." },
+                { type: 'rest', time: 20, title: "Rest", desc: "Round 1 Complete. Round 2 starting." },
 
-            // ROUND 2
-            { type: 'work', time: 40, title: "Sit-to-Stand Squats", desc: "Round 2. Focus on form." },
-            { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Next: Step Jacks." },
-            { type: 'work', time: 40, title: "Step Jacks", desc: "Keep a steady rhythm." },
-            { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Next: Wall/Counter Push-ups." },
-            { type: 'work', time: 40, title: "Wall Push-ups", desc: "Full range of motion." },
-            { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Next: High March Reach." },
-            { type: 'work', time: 40, title: "High March & Reach", desc: "Extend fully. Lengthen the spine." },
-            { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Floor work next: Glute Bridges." },
-            { type: 'work', time: 40, title: "Glute Bridges", desc: "Drive through your heels." },
-            { type: 'rest', time: 20, title: "Rest", desc: "Stand up next: Side Crunches." },
-            { type: 'work', time: 40, title: "Standing Side Crunches", desc: "Balance and squeeze." },
-            { type: 'rest', time: 20, title: "Rest", desc: "Last hard move next: Modified Plank." },
-            { type: 'work', time: 40, title: "Modified Plank", desc: "Hold steady. Don't let hips sag." },
-            { type: 'rest', time: 20, title: "Rest", desc: "Circuit Complete! Time to cool down." },
+                // ROUND 2
+                { type: 'work', time: 40, title: "Sit-to-Stand Squats", desc: "Round 2. Focus on form." },
+                { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Next: Step Jacks." },
+                { type: 'work', time: 40, title: "Step Jacks", desc: "Keep a steady rhythm." },
+                { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Next: Wall/Counter Push-ups." },
+                { type: 'work', time: 40, title: "Wall Push-ups", desc: "Full range of motion." },
+                { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Next: High March Reach." },
+                { type: 'work', time: 40, title: "High March & Reach", desc: "Extend fully. Lengthen the spine." },
+                { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Floor work next: Glute Bridges." },
+                { type: 'work', time: 40, title: "Glute Bridges", desc: "Drive through your heels." },
+                { type: 'rest', time: 20, title: "Rest", desc: "Stand up next: Side Crunches." },
+                { type: 'work', time: 40, title: "Standing Side Crunches", desc: "Balance and squeeze." },
+                { type: 'rest', time: 20, title: "Rest", desc: "Last hard move next: Modified Plank." },
+                { type: 'work', time: 40, title: "Modified Plank", desc: "Hold steady. Don't let hips sag." },
+                { type: 'rest', time: 20, title: "Rest", desc: "Circuit Complete! Time to cool down." },
 
-            // COOL DOWN (3 Mins)
-            { type: 'cooldown', time: 60, title: "Forward Fold", desc: "Legs straight, hang heavy. Shake neck gently." },
-            { type: 'cooldown', time: 60, title: "Calf Stretch", desc: "Against wall. 30s per leg. Breathe." },
-            { type: 'cooldown', time: 60, title: "Deep Belly Breathing", desc: "Inhale 4s, Exhale 6s. Relax." },
-            { type: 'cooldown', time: 0, title: "Workout Complete", desc: "Great job! Session saved." }
-        ];
+                // COOL DOWN (3 Mins)
+                { type: 'cooldown', time: 60, title: "Forward Fold", desc: "Legs straight, hang heavy. Shake neck gently." },
+                { type: 'cooldown', time: 60, title: "Calf Stretch", desc: "Against wall. 30s per leg. Breathe." },
+                { type: 'cooldown', time: 60, title: "Deep Belly Breathing", desc: "Inhale 4s, Exhale 6s. Relax." },
+                { type: 'cooldown', time: 0, title: "Workout Complete", desc: "Great job! Session saved." }
+            ],
+            strength: [
+                // WARM UP (3 Mins)
+                { type: 'warmup', time: 45, title: "Jumping Jacks", desc: "Standard jacks. Land softly on balls of feet." },
+                { type: 'warmup', time: 45, title: "Arm Circles", desc: "Large circles forward and backward to warm up shoulders." },
+                { type: 'warmup', time: 45, title: "High Knees", desc: "Run in place driving knees up towards chest." },
+                { type: 'warmup', time: 45, title: "Inchworms", desc: "Walk hands out to plank, then walk feet to hands." },
+
+                // ROUND 1
+                { type: 'work', time: 45, title: "Air Squats", desc: "Feet shoulder width. Hips back and down." },
+                { type: 'rest', time: 15, title: "Rest", desc: "Shake it out. Next: Push-ups." },
+                { type: 'work', time: 45, title: "Push-ups", desc: "Strict form. Chest to floor. Core tight." },
+                { type: 'rest', time: 15, title: "Rest", desc: "Next: Reverse Lunges." },
+                { type: 'work', time: 45, title: "Reverse Lunges", desc: "Step back, knee close to ground. Alternate legs." },
+                { type: 'rest', time: 15, title: "Rest", desc: "Next: Plank Shoulder Taps." },
+                { type: 'work', time: 45, title: "Plank Shoulder Taps", desc: "High plank. Tap opposite shoulder. Minimize hip sway." },
+                { type: 'rest', time: 15, title: "Rest", desc: "Next: Bicycle Crunches." },
+                { type: 'work', time: 45, title: "Bicycle Crunches", desc: "Elbow to opposite knee. Extend leg fully." },
+                { type: 'rest', time: 60, title: "Recovery", desc: "Catch your breath. Sip water. Round 2 coming up." },
+
+                // ROUND 2
+                { type: 'work', time: 45, title: "Air Squats", desc: "Keep chest up. Squeeze glutes at top." },
+                { type: 'rest', time: 15, title: "Rest", desc: "Next: Push-ups." },
+                { type: 'work', time: 45, title: "Push-ups", desc: "Modify on knees if form breaks down." },
+                { type: 'rest', time: 15, title: "Rest", desc: "Next: Reverse Lunges." },
+                { type: 'work', time: 45, title: "Reverse Lunges", desc: "Control the descent." },
+                { type: 'rest', time: 15, title: "Rest", desc: "Next: Plank Shoulder Taps." },
+                { type: 'work', time: 45, title: "Plank Shoulder Taps", desc: "Keep core engaged." },
+                { type: 'rest', time: 15, title: "Rest", desc: "Next: Bicycle Crunches." },
+                { type: 'work', time: 45, title: "Bicycle Crunches", desc: "Focus on rotation." },
+                { type: 'rest', time: 60, title: "Recovery", desc: "One last round! Make it count." },
+
+                // ROUND 3
+                { type: 'work', time: 45, title: "Air Squats", desc: "Last set of squats. Go for speed." },
+                { type: 'rest', time: 15, title: "Rest", desc: "Next: Push-ups." },
+                { type: 'work', time: 45, title: "Push-ups", desc: "Empty the tank." },
+                { type: 'rest', time: 15, title: "Rest", desc: "Next: Reverse Lunges." },
+                { type: 'work', time: 45, title: "Reverse Lunges", desc: "Stay balanced." },
+                { type: 'rest', time: 15, title: "Rest", desc: "Next: Plank Shoulder Taps." },
+                { type: 'work', time: 45, title: "Plank Shoulder Taps", desc: "Fight the burn." },
+                { type: 'rest', time: 15, title: "Rest", desc: "Last exercise: Bicycle Crunches." },
+                { type: 'work', time: 45, title: "Bicycle Crunches", desc: "Finish strong!" },
+                { type: 'rest', time: 15, title: "Rest", desc: "Main circuit done. Cool down time." },
+
+                // COOL DOWN (3 Mins)
+                { type: 'cooldown', time: 60, title: "Child's Pose", desc: "Knees wide, reach arms forward. Sink hips back." },
+                { type: 'cooldown', time: 60, title: "Cobra Stretch", desc: "Hips on floor, lift chest. Look up gently." },
+                { type: 'cooldown', time: 60, title: "Quad Stretch", desc: "Stand or lie down. Pull heel to glute. 30s each side." },
+                { type: 'cooldown', time: 0, title: "Workout Complete", desc: "Strong work! Session saved." }
+            ]
+        };
 
         // --- STATE ---
         let currentIndex = 0;
         let timeLeft = 0;
         let isPaused = false;
         let timerInterval = null;
+        let currentRoutine = [];
 
         // --- ELEMENTS ---
         const els = {
@@ -287,16 +343,18 @@
             btn: document.getElementById('toggle-btn'),
             homeBtn: document.getElementById('home-btn'),
             phase: document.getElementById('phase-display'),
+            totalProgress: document.getElementById('total-progress'),
             timerRing: document.getElementById('timer-ring'),
             upNext: document.getElementById('up-next')
         };
 
         // --- NAVIGATION ---
-        function startWorkout() {
+        function startWorkout(key) {
+            currentRoutine = workouts[key];
+            currentIndex = 0; // Reset index
             showScreen('app');
             els.homeBtn.classList.add('hidden');
             els.btn.classList.remove('hidden');
-            currentIndex = 0;
             loadStep(currentIndex);
             startInterval();
         }
@@ -304,6 +362,12 @@
         function goHome() {
             stopInterval();
             showScreen('start-screen');
+        }
+
+        function endWorkout() {
+            if(confirm("Are you sure you want to end the workout?")) {
+                goHome();
+            }
         }
 
         function showHistory() {
@@ -320,7 +384,7 @@
 
         // --- WORKOUT LOGIC ---
         function loadStep(index) {
-            const step = routine[index];
+            const step = currentRoutine[index];
             timeLeft = step.time;
             
             els.title.innerText = step.title;
@@ -329,9 +393,13 @@
             els.app.className = `phase-${step.type}`; 
             els.phase.innerText = step.type.toUpperCase();
 
+            // Total Progress
+            const totalSteps = currentRoutine.length;
+            els.totalProgress.innerText = `${index + 1} / ${totalSteps}`;
+
             // Up Next Logic
-            if (index + 1 < routine.length && routine[index+1].time > 0) {
-                els.upNext.innerText = `Up Next: ${routine[index + 1].title}`;
+            if (index + 1 < currentRoutine.length && currentRoutine[index+1].time > 0) {
+                els.upNext.innerText = `Up Next: ${currentRoutine[index + 1].title}`;
             } else {
                 els.upNext.innerText = "";
             }
@@ -364,7 +432,7 @@
             if (timeLeft > 0) {
                 timeLeft--;
                 els.timer.innerText = timeLeft;
-                const totalTime = routine[currentIndex].time;
+                const totalTime = currentRoutine[currentIndex].time;
                 updateRing((timeLeft / totalTime) * 100);
             } else {
                 currentIndex++;
@@ -422,6 +490,22 @@
                 renderHistory();
             }
         }
+
+        // --- INITIALIZATION ---
+        function init() {
+            const selectionDiv = document.getElementById('workout-selection');
+            selectionDiv.innerHTML = '';
+
+            Object.keys(workouts).forEach(key => {
+                const btn = document.createElement('button');
+                btn.innerText = key.charAt(0).toUpperCase() + key.slice(1);
+                btn.onclick = () => startWorkout(key);
+                btn.style.marginBottom = '10px';
+                selectionDiv.appendChild(btn);
+            });
+        }
+
+        init();
     </script>
 </body>
 </html>
