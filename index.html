@@ -170,6 +170,7 @@
         .phase-work .timer-container { --current-color: var(--accent-work); }
         .phase-rest .timer-container { --current-color: var(--accent-rest); }
         .phase-cooldown .timer-container { --current-color: var(--accent-cooldown); }
+        .phase-prepare .timer-container { --current-color: #2ecc71; }
         
         .hidden { display: none !important; }
 
@@ -330,6 +331,7 @@
         let isPaused = false;
         let timerInterval = null;
         let currentRoutine = [];
+        let wakeLock = null;
 
         // --- ELEMENTS ---
         const els = {
@@ -349,18 +351,34 @@
         };
 
         // --- NAVIGATION ---
-        function startWorkout(key) {
-            currentRoutine = workouts[key];
+        async function startWorkout(key) {
+            const originalRoutine = workouts[key];
+            currentRoutine = [];
+
+            originalRoutine.forEach((step) => {
+                if ((step.type === 'work' || step.type === 'warmup' || step.type === 'cooldown') && step.time > 0) {
+                    currentRoutine.push({
+                        type: 'prepare',
+                        time: 5,
+                        title: "GET READY",
+                        desc: `Next up is... ${step.title}`
+                    });
+                }
+                currentRoutine.push(step);
+            });
+
             currentIndex = 0; // Reset index
             showScreen('app');
             els.homeBtn.classList.add('hidden');
             els.btn.classList.remove('hidden');
             loadStep(currentIndex);
             startInterval();
+            requestWakeLock();
         }
 
         function goHome() {
             stopInterval();
+            releaseWakeLock();
             showScreen('start-screen');
         }
 
@@ -398,8 +416,14 @@
             els.totalProgress.innerText = `${index + 1} / ${totalSteps}`;
 
             // Up Next Logic
-            if (index + 1 < currentRoutine.length && currentRoutine[index+1].time > 0) {
-                els.upNext.innerText = `Up Next: ${currentRoutine[index + 1].title}`;
+            let nextIndex = index + 1;
+            // Skip "prepare" steps for the "Up Next" preview at the bottom
+            while (nextIndex < currentRoutine.length && currentRoutine[nextIndex].type === 'prepare') {
+                nextIndex++;
+            }
+
+            if (nextIndex < currentRoutine.length) {
+                els.upNext.innerText = `Up Next: ${currentRoutine[nextIndex].title}`;
             } else {
                 els.upNext.innerText = "";
             }
@@ -490,6 +514,34 @@
                 renderHistory();
             }
         }
+
+        // --- WAKE LOCK ---
+        async function requestWakeLock() {
+            try {
+                if ('wakeLock' in navigator) {
+                    wakeLock = await navigator.wakeLock.request('screen');
+                    wakeLock.addEventListener('release', () => {
+                        console.log('Wake Lock was released');
+                    });
+                    console.log('Wake Lock is active');
+                }
+            } catch (err) {
+                console.error(`${err.name}, ${err.message}`);
+            }
+        }
+
+        function releaseWakeLock() {
+            if (wakeLock !== null) {
+                wakeLock.release();
+                wakeLock = null;
+            }
+        }
+
+        document.addEventListener('visibilitychange', async () => {
+            if (wakeLock !== null && document.visibilityState === 'visible') {
+                requestWakeLock();
+            }
+        });
 
         // --- INITIALIZATION ---
         function init() {
