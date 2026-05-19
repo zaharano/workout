@@ -231,98 +231,196 @@
         const workouts = {
             mobility: [
                 // WARM UP (3 Mins)
-                { type: 'warmup', time: 45, title: "Torso Twists", desc: "Plant feet wide, gentle twist side to side. Let heels lift." },
-                { type: 'warmup', time: 45, title: "Hip Openers", desc: "Lift knee up and rotate out to the side like stepping over a hurdle." },
-                { type: 'warmup', time: 45, title: "Arm Swings", desc: "Cross arms over chest then swing wide open." },
-                { type: 'warmup', time: 45, title: "March in Place", desc: "Get the blood moving. Swing your arms." },
+                { type: 'warmup', time: 45, title: "Torso Twists", desc: "Twist gently side to side, letting the back heel lift as you rotate.", position: "Standing, feet wider than hips" },
+                { type: 'warmup', time: 45, title: "Hip Openers", desc: "Lift a knee, then circle it open to the side like stepping over a hurdle. Alternate.", position: "Standing tall" },
+                { type: 'warmup', time: 45, title: "Arm Swings", desc: "Swing both arms wide open, then cross them back over your chest.", position: "Standing, feet hip-width" },
+                { type: 'warmup', time: 45, title: "March in Place", desc: "March on the spot, lifting your knees and swinging your arms.", position: "Standing tall" },
 
                 // ROUND 1
-                { type: 'work', time: 40, title: "Sit-to-Stand Squats", desc: "Lower slowly to a chair tap, then stand. Chest up." },
+                { type: 'work', time: 40, title: "Sit-to-Stand Squats", desc: "Lower slowly until you tap the seat, then drive up to stand. Chest up.", position: "Standing in front of a chair" },
                 { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Next: Step Jacks." },
-                { type: 'work', time: 40, title: "Step Jacks", desc: "Step one foot out with arm raise. No jumping." },
+                { type: 'work', time: 40, title: "Step Jacks", desc: "Step one foot out wide as you raise your arms overhead, then back in. No jumping.", position: "Standing, feet together" },
                 { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Next: Wall/Counter Push-ups." },
-                { type: 'work', time: 40, title: "Wall Push-ups", desc: "Hands on wall or counter. Keep core tight." },
+                { type: 'work', time: 40, title: "Wall Push-ups", desc: "Bend your elbows to lean your chest toward the wall, then press back. Core tight.", position: "Standing arm's length from a wall" },
                 { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Next: High March Reach." },
-                { type: 'work', time: 40, title: "High March & Reach", desc: "Opposite knee and arm lift. Reach high." },
+                { type: 'work', time: 40, title: "High March & Reach", desc: "Lift one knee while reaching the opposite arm high. Alternate sides.", position: "Standing tall" },
                 { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Floor work next: Glute Bridges." },
-                { type: 'work', time: 40, title: "Glute Bridges", desc: "Lie on back. Lift hips, squeeze glutes at top." },
+                { type: 'work', time: 40, title: "Glute Bridges", desc: "Drive through your heels to lift your hips, squeeze your glutes at the top.", position: "On your back, knees bent, feet flat" },
                 { type: 'rest', time: 20, title: "Rest", desc: "Stand up next: Side Crunches." },
-                { type: 'work', time: 40, title: "Standing Side Crunches", desc: "Hands behind head. Knee to elbow on side." },
+                { type: 'work', time: 40, title: "Standing Side Crunches", desc: "Lift a knee out to the side, crunching the same-side elbow down to meet it. Alternate.", position: "Standing, hands behind your head" },
                 { type: 'rest', time: 20, title: "Rest", desc: "Floor work next: Modified Plank." },
-                { type: 'work', time: 40, title: "Modified Plank", desc: "Forearms and knees. Flat back. Squeeze abs." },
+                { type: 'work', time: 40, title: "Modified Plank", desc: "Hold a straight line from head to knees. Flat back, abs squeezed.", position: "On the floor, on forearms and knees" },
                 { type: 'rest', time: 20, title: "Rest", desc: "Round 1 Complete. Round 2 starting." },
 
                 // ROUND 2
-                { type: 'work', time: 40, title: "Sit-to-Stand Squats", desc: "Round 2. Focus on form." },
+                { type: 'work', time: 40, title: "Sit-to-Stand Squats", desc: "Lower slowly until you tap the seat, then drive up to stand. Chest up.", position: "Standing in front of a chair" },
                 { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Next: Step Jacks." },
-                { type: 'work', time: 40, title: "Step Jacks", desc: "Keep a steady rhythm." },
+                { type: 'work', time: 40, title: "Step Jacks", desc: "Step one foot out wide as you raise your arms overhead, then back in. No jumping.", position: "Standing, feet together" },
                 { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Next: Wall/Counter Push-ups." },
-                { type: 'work', time: 40, title: "Wall Push-ups", desc: "Full range of motion." },
+                { type: 'work', time: 40, title: "Wall Push-ups", desc: "Bend your elbows to lean your chest toward the wall, then press back. Core tight.", position: "Standing arm's length from a wall" },
                 { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Next: High March Reach." },
-                { type: 'work', time: 40, title: "High March & Reach", desc: "Extend fully. Lengthen the spine." },
+                { type: 'work', time: 40, title: "High March & Reach", desc: "Lift one knee while reaching the opposite arm high. Alternate sides.", position: "Standing tall" },
                 { type: 'rest', time: 20, title: "Rest", desc: "Breathe. Floor work next: Glute Bridges." },
-                { type: 'work', time: 40, title: "Glute Bridges", desc: "Drive through your heels." },
+                { type: 'work', time: 40, title: "Glute Bridges", desc: "Drive through your heels to lift your hips, squeeze your glutes at the top.", position: "On your back, knees bent, feet flat" },
                 { type: 'rest', time: 20, title: "Rest", desc: "Stand up next: Side Crunches." },
-                { type: 'work', time: 40, title: "Standing Side Crunches", desc: "Balance and squeeze." },
+                { type: 'work', time: 40, title: "Standing Side Crunches", desc: "Lift a knee out to the side, crunching the same-side elbow down to meet it. Alternate.", position: "Standing, hands behind your head" },
                 { type: 'rest', time: 20, title: "Rest", desc: "Last hard move next: Modified Plank." },
-                { type: 'work', time: 40, title: "Modified Plank", desc: "Hold steady. Don't let hips sag." },
+                { type: 'work', time: 40, title: "Modified Plank", desc: "Hold a straight line from head to knees. Flat back, abs squeezed.", position: "On the floor, on forearms and knees" },
                 { type: 'rest', time: 20, title: "Rest", desc: "Circuit Complete! Time to cool down." },
 
                 // COOL DOWN (3 Mins)
-                { type: 'cooldown', time: 60, title: "Forward Fold", desc: "Legs straight, hang heavy. Shake neck gently." },
-                { type: 'cooldown', time: 60, title: "Calf Stretch", desc: "Against wall. 30s per leg. Breathe." },
-                { type: 'cooldown', time: 60, title: "Deep Belly Breathing", desc: "Inhale 4s, Exhale 6s. Relax." },
+                { type: 'cooldown', time: 60, title: "Forward Fold", desc: "Hinge at the hips and hang down, knees soft. Let your head and arms hang heavy.", position: "Standing, feet hip-width" },
+                { type: 'cooldown', time: 60, title: "Calf Stretch", desc: "Step one foot back, heel down and leg straight, and lean in. 30s per leg.", position: "Standing, hands on a wall" },
+                { type: 'cooldown', time: 60, title: "Deep Belly Breathing", desc: "Inhale through the nose 4s, exhale slowly 6s. Let the belly rise and fall.", position: "Seated or lying down, relaxed" },
                 { type: 'cooldown', time: 0, title: "Workout Complete", desc: "Great job! Session saved." }
             ],
             strength: [
                 // WARM UP (3 Mins)
-                { type: 'warmup', time: 45, title: "Jumping Jacks", desc: "Standard jacks. Land softly on balls of feet." },
-                { type: 'warmup', time: 45, title: "Arm Circles", desc: "Large circles forward and backward to warm up shoulders." },
-                { type: 'warmup', time: 45, title: "High Knees", desc: "Run in place driving knees up towards chest." },
-                { type: 'warmup', time: 45, title: "Inchworms", desc: "Walk hands out to plank, then walk feet to hands." },
+                { type: 'warmup', time: 45, title: "Jumping Jacks", desc: "Jump your feet wide while raising your arms overhead, then back together. Land softly.", position: "Standing, feet together" },
+                { type: 'warmup', time: 45, title: "Arm Circles", desc: "Make large circles forward, then reverse to backward.", position: "Standing, arms out to your sides" },
+                { type: 'warmup', time: 45, title: "High Knees", desc: "Run on the spot, driving each knee up toward your chest.", position: "Standing tall" },
+                { type: 'warmup', time: 45, title: "Inchworms", desc: "Fold down, walk your hands out to a plank, then walk your feet back to your hands.", position: "Standing, feet hip-width" },
 
                 // ROUND 1
-                { type: 'work', time: 45, title: "Air Squats", desc: "Feet shoulder width. Hips back and down." },
+                { type: 'work', time: 45, title: "Air Squats", desc: "Push your hips back and down until thighs near parallel, then stand tall.", position: "Standing, feet shoulder-width" },
                 { type: 'rest', time: 15, title: "Rest", desc: "Shake it out. Next: Push-ups." },
-                { type: 'work', time: 45, title: "Push-ups", desc: "Strict form. Chest to floor. Core tight." },
+                { type: 'work', time: 45, title: "Push-ups", desc: "Lower your chest toward the floor with elbows tucked, then press back up. Core tight.", position: "In a high plank, hands under shoulders" },
                 { type: 'rest', time: 15, title: "Rest", desc: "Next: Reverse Lunges." },
-                { type: 'work', time: 45, title: "Reverse Lunges", desc: "Step back, knee close to ground. Alternate legs." },
+                { type: 'work', time: 45, title: "Reverse Lunges", desc: "Step one foot back and lower until both knees bend ~90°, then drive up. Alternate.", position: "Standing tall" },
                 { type: 'rest', time: 15, title: "Rest", desc: "Next: Plank Shoulder Taps." },
-                { type: 'work', time: 45, title: "Plank Shoulder Taps", desc: "High plank. Tap opposite shoulder. Minimize hip sway." },
+                { type: 'work', time: 45, title: "Plank Shoulder Taps", desc: "Tap each hand to the opposite shoulder, keeping your hips as still as possible.", position: "In a high plank, hands under shoulders" },
                 { type: 'rest', time: 15, title: "Rest", desc: "Next: Bicycle Crunches." },
-                { type: 'work', time: 45, title: "Bicycle Crunches", desc: "Elbow to opposite knee. Extend leg fully." },
+                { type: 'work', time: 45, title: "Bicycle Crunches", desc: "Bring each elbow to the opposite knee while extending the other leg long. Alternate.", position: "On your back, hands behind your head" },
                 { type: 'rest', time: 60, title: "Recovery", desc: "Catch your breath. Sip water. Round 2 coming up." },
 
                 // ROUND 2
-                { type: 'work', time: 45, title: "Air Squats", desc: "Keep chest up. Squeeze glutes at top." },
+                { type: 'work', time: 45, title: "Air Squats", desc: "Push your hips back and down until thighs near parallel, then stand tall.", position: "Standing, feet shoulder-width" },
                 { type: 'rest', time: 15, title: "Rest", desc: "Next: Push-ups." },
-                { type: 'work', time: 45, title: "Push-ups", desc: "Modify on knees if form breaks down." },
+                { type: 'work', time: 45, title: "Push-ups", desc: "Lower your chest toward the floor with elbows tucked, then press back up. Core tight.", position: "In a high plank, hands under shoulders" },
                 { type: 'rest', time: 15, title: "Rest", desc: "Next: Reverse Lunges." },
-                { type: 'work', time: 45, title: "Reverse Lunges", desc: "Control the descent." },
+                { type: 'work', time: 45, title: "Reverse Lunges", desc: "Step one foot back and lower until both knees bend ~90°, then drive up. Alternate.", position: "Standing tall" },
                 { type: 'rest', time: 15, title: "Rest", desc: "Next: Plank Shoulder Taps." },
-                { type: 'work', time: 45, title: "Plank Shoulder Taps", desc: "Keep core engaged." },
+                { type: 'work', time: 45, title: "Plank Shoulder Taps", desc: "Tap each hand to the opposite shoulder, keeping your hips as still as possible.", position: "In a high plank, hands under shoulders" },
                 { type: 'rest', time: 15, title: "Rest", desc: "Next: Bicycle Crunches." },
-                { type: 'work', time: 45, title: "Bicycle Crunches", desc: "Focus on rotation." },
+                { type: 'work', time: 45, title: "Bicycle Crunches", desc: "Bring each elbow to the opposite knee while extending the other leg long. Alternate.", position: "On your back, hands behind your head" },
                 { type: 'rest', time: 60, title: "Recovery", desc: "One last round! Make it count." },
 
                 // ROUND 3
-                { type: 'work', time: 45, title: "Air Squats", desc: "Last set of squats. Go for speed." },
+                { type: 'work', time: 45, title: "Air Squats", desc: "Push your hips back and down until thighs near parallel, then stand tall.", position: "Standing, feet shoulder-width" },
                 { type: 'rest', time: 15, title: "Rest", desc: "Next: Push-ups." },
-                { type: 'work', time: 45, title: "Push-ups", desc: "Empty the tank." },
+                { type: 'work', time: 45, title: "Push-ups", desc: "Lower your chest toward the floor with elbows tucked, then press back up. Core tight.", position: "In a high plank, hands under shoulders" },
                 { type: 'rest', time: 15, title: "Rest", desc: "Next: Reverse Lunges." },
-                { type: 'work', time: 45, title: "Reverse Lunges", desc: "Stay balanced." },
+                { type: 'work', time: 45, title: "Reverse Lunges", desc: "Step one foot back and lower until both knees bend ~90°, then drive up. Alternate.", position: "Standing tall" },
                 { type: 'rest', time: 15, title: "Rest", desc: "Next: Plank Shoulder Taps." },
-                { type: 'work', time: 45, title: "Plank Shoulder Taps", desc: "Fight the burn." },
+                { type: 'work', time: 45, title: "Plank Shoulder Taps", desc: "Tap each hand to the opposite shoulder, keeping your hips as still as possible.", position: "In a high plank, hands under shoulders" },
                 { type: 'rest', time: 15, title: "Rest", desc: "Last exercise: Bicycle Crunches." },
-                { type: 'work', time: 45, title: "Bicycle Crunches", desc: "Finish strong!" },
+                { type: 'work', time: 45, title: "Bicycle Crunches", desc: "Bring each elbow to the opposite knee while extending the other leg long. Alternate.", position: "On your back, hands behind your head" },
                 { type: 'rest', time: 15, title: "Rest", desc: "Main circuit done. Cool down time." },
 
                 // COOL DOWN (3 Mins)
-                { type: 'cooldown', time: 60, title: "Child's Pose", desc: "Knees wide, reach arms forward. Sink hips back." },
-                { type: 'cooldown', time: 60, title: "Cobra Stretch", desc: "Hips on floor, lift chest. Look up gently." },
-                { type: 'cooldown', time: 60, title: "Quad Stretch", desc: "Stand or lie down. Pull heel to glute. 30s each side." },
+                { type: 'cooldown', time: 60, title: "Child's Pose", desc: "Sink your hips back toward your heels, knees wide, and reach your arms forward.", position: "Kneeling on the floor" },
+                { type: 'cooldown', time: 60, title: "Cobra Stretch", desc: "Hands under shoulders, press your chest up while keeping your hips on the floor. Look up gently.", position: "Lying face down" },
+                { type: 'cooldown', time: 60, title: "Quad Stretch", desc: "Pull one heel toward your glute, knees together. Hold 30s, then switch.", position: "Standing, holding a wall for balance" },
+                { type: 'cooldown', time: 0, title: "Workout Complete", desc: "Strong work! Session saved." }
+            ],
+            dynamicWarmup: [
+                // 9-MINUTE DYNAMIC WARM-UP — 3 rounds of 6 moves
+                // ROUND 1
+                { type: 'warmup', time: 30, title: "Thoracic Spine Rotations", desc: "Reach your top arm over to the floor behind you and back, rotating your trunk — not your hips. Switch sides halfway.", position: "On your side, knees and hips bent 90°, arms in front" },
+                { type: 'warmup', time: 30, title: "Hip Cradles", desc: "Lift one knee and cradle the shin up toward your chest, release, then alternate.", position: "Standing tall" },
+                { type: 'warmup', time: 30, title: "Straight Leg Marches", desc: "Kick one straight leg up to meet the opposite hand, alternating as you march.", position: "Standing tall" },
+                { type: 'warmup', time: 30, title: "Forward Lunges", desc: "Step forward into a lunge, both knees ~90°, then push back to standing. Alternate legs.", position: "Standing tall" },
+                { type: 'warmup', time: 30, title: "Lateral Lunges", desc: "Step wide to one side, bend that knee and sink your hips; keep the other leg straight. Alternate.", position: "Standing, feet together" },
+                { type: 'warmup', time: 30, title: "Side Shuffle & Reach", desc: "Shuffle side to side, toes pointed forward, raising and lowering your arms overhead like a jumping jack.", position: "Standing tall, weight on the balls of your feet" },
+
+                // ROUND 2
+                { type: 'warmup', time: 30, title: "Thoracic Spine Rotations", desc: "Reach your top arm over to the floor behind you and back, rotating your trunk — not your hips. Switch sides halfway.", position: "On your side, knees and hips bent 90°, arms in front" },
+                { type: 'warmup', time: 30, title: "Hip Cradles", desc: "Lift one knee and cradle the shin up toward your chest, release, then alternate.", position: "Standing tall" },
+                { type: 'warmup', time: 30, title: "Straight Leg Marches", desc: "Kick one straight leg up to meet the opposite hand, alternating as you march.", position: "Standing tall" },
+                { type: 'warmup', time: 30, title: "Forward Lunges", desc: "Step forward into a lunge, both knees ~90°, then push back to standing. Alternate legs.", position: "Standing tall" },
+                { type: 'warmup', time: 30, title: "Lateral Lunges", desc: "Step wide to one side, bend that knee and sink your hips; keep the other leg straight. Alternate.", position: "Standing, feet together" },
+                { type: 'warmup', time: 30, title: "Side Shuffle & Reach", desc: "Shuffle side to side, toes pointed forward, raising and lowering your arms overhead like a jumping jack.", position: "Standing tall, weight on the balls of your feet" },
+
+                // ROUND 3
+                { type: 'warmup', time: 30, title: "Thoracic Spine Rotations", desc: "Reach your top arm over to the floor behind you and back, rotating your trunk — not your hips. Switch sides halfway.", position: "On your side, knees and hips bent 90°, arms in front" },
+                { type: 'warmup', time: 30, title: "Hip Cradles", desc: "Lift one knee and cradle the shin up toward your chest, release, then alternate.", position: "Standing tall" },
+                { type: 'warmup', time: 30, title: "Straight Leg Marches", desc: "Kick one straight leg up to meet the opposite hand, alternating as you march.", position: "Standing tall" },
+                { type: 'warmup', time: 30, title: "Forward Lunges", desc: "Step forward into a lunge, both knees ~90°, then push back to standing. Alternate legs.", position: "Standing tall" },
+                { type: 'warmup', time: 30, title: "Lateral Lunges", desc: "Step wide to one side, bend that knee and sink your hips; keep the other leg straight. Alternate.", position: "Standing, feet together" },
+                { type: 'warmup', time: 30, title: "Side Shuffle & Reach", desc: "Shuffle side to side, toes pointed forward, raising and lowering your arms overhead like a jumping jack.", position: "Standing tall, weight on the balls of your feet" },
+
+                { type: 'cooldown', time: 0, title: "Warm-Up Complete", desc: "Primed and ready! Session saved." }
+            ],
+            mobilityFlow: [
+                // 10-MINUTE MOBILITY WORKOUT — full sequence twice
+                // ROUND 1
+                { type: 'work', time: 60, title: "Lunges", desc: "Step forward into a lunge, both knees ~90°, then return. Alternate legs. 10-20 reps.", position: "Standing tall" },
+                { type: 'work', time: 60, title: "Squats", desc: "Push your hips back and down until thighs near parallel, then stand tall. 10-20 reps.", position: "Standing, feet shoulder-width" },
+                { type: 'work', time: 60, title: "Glute Bridges", desc: "Drive through your heels to lift your hips, squeeze at the top, lower slowly. 10-15 reps.", position: "On your back, knees bent, feet flat" },
+                { type: 'work', time: 60, title: "Pointers", desc: "Extend the opposite arm and leg straight out, level with your torso, then return. Alternate. 6-10 reps.", position: "On hands and knees" },
+                { type: 'work', time: 60, title: "Y-T-W-L Formation", desc: "Move your arms into each letter shape — Y, T, W, L — squeezing your upper back. 3-5 reps each.", position: "Lying on your back (harder: standing, hinged at the hips)" },
+
+                // ROUND 2
+                { type: 'work', time: 60, title: "Lunges", desc: "Step forward into a lunge, both knees ~90°, then return. Alternate legs. 10-20 reps.", position: "Standing tall" },
+                { type: 'work', time: 60, title: "Squats", desc: "Push your hips back and down until thighs near parallel, then stand tall. 10-20 reps.", position: "Standing, feet shoulder-width" },
+                { type: 'work', time: 60, title: "Glute Bridges", desc: "Drive through your heels to lift your hips, squeeze at the top, lower slowly. 10-15 reps.", position: "On your back, knees bent, feet flat" },
+                { type: 'work', time: 60, title: "Pointers", desc: "Extend the opposite arm and leg straight out, level with your torso, then return. Alternate. 6-10 reps.", position: "On hands and knees" },
+                { type: 'work', time: 60, title: "Y-T-W-L Formation", desc: "Move your arms into each letter shape — Y, T, W, L — squeezing your upper back. 3-5 reps each.", position: "Lying on your back (harder: standing, hinged at the hips)" },
+
+                { type: 'cooldown', time: 0, title: "Workout Complete", desc: "Mobility flow done! Session saved." }
+            ],
+            beginnerStrength: [
+                // BEGINNER STRENGTH — warm-up + 3 rounds of an isometric circuit
+                // WARM UP (hold each ~20s)
+                { type: 'warmup', time: 20, title: "Glute Bridge", desc: "Lift your hips into a straight line from knees to shoulders and hold, ribs down.", position: "On your back, knees bent, feet flat" },
+                { type: 'warmup', time: 20, title: "Bird Dog", desc: "Extend the opposite arm and leg straight out, level with your torso, and hold; then switch.", position: "On hands and knees" },
+                { type: 'warmup', time: 20, title: "Dead Bug", desc: "Lower one arm and the opposite leg toward the floor and hold, low back pressed down.", position: "On your back, arms up, knees bent over hips" },
+                { type: 'warmup', time: 20, title: "Superhuman", desc: "Lift your chest, arms, and legs off the floor and hold.", position: "Lying face down, arms reaching overhead" },
+
+                // ROUND 1
+                { type: 'work', time: 30, title: "Split Squat Isometric", desc: "Lower until both knees are ~90° and hold low, front shin vertical.", position: "Standing in a long split stance" },
+                { type: 'rest', time: 60, title: "Rest", desc: "Breathe and reset. Next: Push-Up Isometric." },
+                { type: 'work', time: 30, title: "Push-Up Isometric", desc: "Lower halfway down and hold there, elbows tucked, body in one straight line.", position: "In a high plank, hands under shoulders" },
+                { type: 'rest', time: 60, title: "Rest", desc: "Breathe and reset. Next: Kickstand Deadlift & Reach." },
+                { type: 'work', time: 30, title: "Kickstand Deadlift & Reach", desc: "Raise your arms by your ears, then hinge at the hips until your torso is near parallel to the floor. Hold there, spine long. Switch sides halfway.", position: "Standing, one foot back with heel raised, in a kickstand" },
+                { type: 'rest', time: 60, title: "Rest", desc: "Breathe and reset. Next: Side Plank." },
+                { type: 'work', time: 30, title: "Side Plank", desc: "Stack your hips and feet, lift into a straight line, and hold. Switch sides halfway.", position: "On your side, propped on one forearm" },
+                { type: 'rest', time: 60, title: "Rest", desc: "Breathe and reset. Next: Hollow Body Hold." },
+                { type: 'work', time: 30, title: "Hollow Body Hold", desc: "Press your low back into the floor, lift your shoulders and legs, and hold.", position: "On your back, arms reaching overhead" },
+                { type: 'rest', time: 90, title: "Recovery", desc: "Round 1 complete. Catch your breath — Round 2 next." },
+
+                // ROUND 2
+                { type: 'work', time: 30, title: "Split Squat Isometric", desc: "Lower until both knees are ~90° and hold low, front shin vertical.", position: "Standing in a long split stance" },
+                { type: 'rest', time: 60, title: "Rest", desc: "Breathe and reset. Next: Push-Up Isometric." },
+                { type: 'work', time: 30, title: "Push-Up Isometric", desc: "Lower halfway down and hold there, elbows tucked, body in one straight line.", position: "In a high plank, hands under shoulders" },
+                { type: 'rest', time: 60, title: "Rest", desc: "Breathe and reset. Next: Kickstand Deadlift & Reach." },
+                { type: 'work', time: 30, title: "Kickstand Deadlift & Reach", desc: "Raise your arms by your ears, then hinge at the hips until your torso is near parallel to the floor. Hold there, spine long. Switch sides halfway.", position: "Standing, one foot back with heel raised, in a kickstand" },
+                { type: 'rest', time: 60, title: "Rest", desc: "Breathe and reset. Next: Side Plank." },
+                { type: 'work', time: 30, title: "Side Plank", desc: "Stack your hips and feet, lift into a straight line, and hold. Switch sides halfway.", position: "On your side, propped on one forearm" },
+                { type: 'rest', time: 60, title: "Rest", desc: "Breathe and reset. Next: Hollow Body Hold." },
+                { type: 'work', time: 30, title: "Hollow Body Hold", desc: "Press your low back into the floor, lift your shoulders and legs, and hold.", position: "On your back, arms reaching overhead" },
+                { type: 'rest', time: 90, title: "Recovery", desc: "Round 2 complete. One round to go!" },
+
+                // ROUND 3
+                { type: 'work', time: 30, title: "Split Squat Isometric", desc: "Lower until both knees are ~90° and hold low, front shin vertical.", position: "Standing in a long split stance" },
+                { type: 'rest', time: 60, title: "Rest", desc: "Breathe and reset. Next: Push-Up Isometric." },
+                { type: 'work', time: 30, title: "Push-Up Isometric", desc: "Lower halfway down and hold there, elbows tucked, body in one straight line.", position: "In a high plank, hands under shoulders" },
+                { type: 'rest', time: 60, title: "Rest", desc: "Breathe and reset. Next: Kickstand Deadlift & Reach." },
+                { type: 'work', time: 30, title: "Kickstand Deadlift & Reach", desc: "Raise your arms by your ears, then hinge at the hips until your torso is near parallel to the floor. Hold there, spine long. Switch sides halfway.", position: "Standing, one foot back with heel raised, in a kickstand" },
+                { type: 'rest', time: 60, title: "Rest", desc: "Breathe and reset. Next: Side Plank." },
+                { type: 'work', time: 30, title: "Side Plank", desc: "Stack your hips and feet, lift into a straight line, and hold. Switch sides halfway.", position: "On your side, propped on one forearm" },
+                { type: 'rest', time: 60, title: "Rest", desc: "Breathe and reset. Last exercise: Hollow Body Hold." },
+                { type: 'work', time: 30, title: "Hollow Body Hold", desc: "Press your low back into the floor, lift your shoulders and legs, and hold.", position: "On your back, arms reaching overhead" },
+
                 { type: 'cooldown', time: 0, title: "Workout Complete", desc: "Strong work! Session saved." }
             ]
+        };
+
+        // Display names for the start-screen buttons (keys can't hold spaces/casing).
+        const workoutNames = {
+            dynamicWarmup: "9-Min Dynamic Warm-Up",
+            mobilityFlow: "10-Min Mobility Flow",
+            beginnerStrength: "Beginner Strength"
         };
 
         // --- STATE ---
@@ -361,7 +459,9 @@
                         type: 'prepare',
                         time: 5,
                         title: "GET READY",
-                        desc: `Next up is... ${step.title}`
+                        desc: step.position
+                            ? `Next up is... ${step.title}\nGet set: ${step.position}`
+                            : `Next up is... ${step.title}`
                     });
                 }
                 currentRoutine.push(step);
@@ -550,7 +650,7 @@
 
             Object.keys(workouts).forEach(key => {
                 const btn = document.createElement('button');
-                btn.innerText = key.charAt(0).toUpperCase() + key.slice(1);
+                btn.innerText = workoutNames[key] || (key.charAt(0).toUpperCase() + key.slice(1));
                 btn.onclick = () => startWorkout(key);
                 btn.style.marginBottom = '10px';
                 selectionDiv.appendChild(btn);
